@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Validation2</title>
+
+    <style>
+        .require {
+            visibility: hidden;
+            margin: 0.5rem;
+            color: red;
+        }
+
+        .require-show {
+            visibility:visible;
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <form>
+        <label for="task">New Task: </label>
+        <input type="text" id="task">
+        <p id="task-require" class="require">This field cannot contain html characters and cannot be empty</p>
+
+        <label for="desc">Task Description: </label>
+        <input id="desc" type="text" placeholder="Description Here <</Optional>>">
+
+        <br><br><br>
+
+        <label for="date">Task Due Date: </label>
+        <input id="date" type="date">
+        <p id="date-require" class="require">Required.. Must select a date</p>
+
+        <label for="time">Task Due Time: </label>
+        <input id="time" type="time">
+        <p id="time-require" class="require">Required.. Must select a time</p>
+
+        <button id="submit">
+            Submit
+        </button>
+
+    </form>
+
+    <br>
+
+    <div id="display">
+
+    </div>
+
+</body>
+
+<script>
+
+    let submitBtn = document.getElementById("submit")
+
+    submitBtn.onclick = function (e) {
+
+        
+        e.preventDefault()
+
+        let validated = true;
+
+        
+        let task = document.getElementById("task")
+        let desc = document.getElementById("desc")
+        let date = document.getElementById("date")
+        let time = document.getElementById("time")
+        
+        
+        let taskErr = document.getElementById("task-require")
+        let dateErr = document.getElementById("date-require")
+        let timeErr = document.getElementById("time-require")
+
+
+        if (task.value.includes('<') || task.value.includes('>') || task.value == "") {
+
+            taskErr.style.visibility = "visible"
+            taskErr.style.color="red";
+    
+            validated = false
+            
+        } else {
+            
+            taskErr.style.visibility = "hidden"
+        }
+
+
+        if (date.value == "") {
+
+            dateErr.style.visibility = "visible"
+            dateErr.style.color="red";
+
+            validated = false
+
+        } else {
+
+            dateErr.style.visibility = "hidden"
+        }
+
+
+        
+        if (time.value == "") {
+            
+            timeErr.style.visibility = "visible"
+            timeErr.style.color="red";
+            
+            validated = false
+
+        } else {
+
+            timeErr.style.visibility = "hidden"
+        }
+
+        
+        if (validated === true) {
+            let display = document.getElementById("display")
+            
+            display.innerHTML += `
+                <ul>
+                    <li>
+                        <h3>
+                            Task: ${task.value} <br>
+                        </h3>
+                        Desc: ${desc.value} <br>
+                        Date: ${date.value} <br>
+                        Time: ${time.value}
+                    </li> 
+                </ul>
+            `
+        }
+
+
+    }
+
+</script>
+
+</html>
